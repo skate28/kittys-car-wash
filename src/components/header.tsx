@@ -24,7 +24,7 @@ export function Header({ links }: { links: NavLink[] }) {
         </a>
         {links.length > 0 && (
           <nav aria-label="Sections" className="hidden lg:block">
-            <ul className="flex items-center gap-6 whitespace-nowrap text-sm font-bold uppercase tracking-[0.14em]">
+            <ul className="flex items-center gap-5 whitespace-nowrap text-sm font-bold uppercase tracking-[0.12em] xl:gap-6">
               {links.map((link) => (
                 <li key={link.href}>
                   <a
@@ -45,7 +45,7 @@ export function Header({ links }: { links: NavLink[] }) {
           <a
             href={tel}
             className={cn(
-              "hidden shrink-0 items-center gap-2 whitespace-nowrap rounded-full border-[3px] border-ink bg-brand px-4 py-1.5 font-display text-sm uppercase tracking-wide text-paper shadow-[0_4px_0_0_var(--fs-ink)] transition hover:-translate-y-0.5 sm:inline-flex",
+              "inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border-[3px] border-ink bg-brand px-3.5 py-1.5 font-display text-xs uppercase tracking-wide text-paper shadow-[0_4px_0_0_var(--fs-ink)] transition hover:-translate-y-0.5 sm:px-4 sm:text-sm",
               focusRing,
             )}
           >
@@ -54,6 +54,30 @@ export function Header({ links }: { links: NavLink[] }) {
           </a>
         )}
       </div>
+
+      {/* Visible header navigation bar for tablet, split-screen, and mobile views (< 1024px) */}
+      {links.length > 0 && (
+        <nav
+          aria-label="Sections"
+          className="border-t-2 border-ink/15 bg-paper/90 lg:hidden"
+        >
+          <ul className="mx-auto flex max-w-6xl items-center gap-2 overflow-x-auto px-4 py-2 whitespace-nowrap sm:gap-3 sm:px-8">
+            {links.map((link) => (
+              <li key={link.href} className="shrink-0">
+                <a
+                  href={link.href}
+                  className={cn(
+                    "inline-block rounded-full border-2 border-ink bg-cream px-3 py-1 text-xs font-bold uppercase tracking-[0.1em] text-ink shadow-[0_2px_0_0_var(--fs-ink)] transition hover:bg-mustard",
+                    focusRing,
+                  )}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
     </header>
   );
 }
