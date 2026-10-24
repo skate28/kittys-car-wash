@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+/*
+  Kitty's Car Wash retro suds & shine palette. Live values come from `site.palette` when set (see layout.tsx).
+  Deep chrome navy ink, vibrant suds cobalt blue, electric aqua cyan, sunshine yellow sparkle, and crisp foam white.
+*/
+:root {
+  --fs-ink: #0b192c;
+  --fs-brand: #0077b6;
+  --fs-brand-deep: #023e8a;
+  --fs-teal: #00b4d8;
+  --fs-mustard: #ffd100;
+  --fs-cream: #f0f9ff;
+  --fs-paper: #ffffff;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-ink: var(--fs-ink);
+  --color-brand: var(--fs-brand);
+  --color-brand-deep: var(--fs-brand-deep);
+  --color-teal: var(--fs-teal);
+  --color-mustard: var(--fs-mustard);
+  --color-cream: var(--fs-cream);
+  --color-paper: var(--fs-paper);
+  --font-sans: var(--font-sans-face), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-face), "Arial Black", Impact, sans-serif;
+  --font-script: var(--font-script-face), "Brush Script MT", cursive;
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-spin-slow: spin 28s linear infinite;
+  --animate-sunburst: spin 110s linear infinite;
+  --animate-float-slow: float-bubble 5.5s ease-in-out infinite;
+  --animate-twinkle: twinkle 2.8s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes float-bubble {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-12px) scale(1.05);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.22) rotate(12deg);
+    opacity: 0.8;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+  background: var(--fs-cream);
+}
+
+body {
+  background-color: var(--fs-cream);
+  color: var(--fs-ink);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--fs-mustard);
+  color: var(--fs-ink);
+}
+
+/* Retro car-wash bay checker/chevron tile strip. */
+.checker {
+  background-color: var(--fs-paper);
+  background-image:
+    conic-gradient(var(--fs-ink) 25%, var(--fs-mustard) 0 50%, var(--fs-ink) 0 75%, var(--fs-teal) 0);
+  background-size: var(--checker-size, 24px) var(--checker-size, 24px);
+}
+
+/* Retro sunburst shine rays behind the hero wash bay scene. */
+.sunburst {
+  background: repeating-conic-gradient(
+    from 0deg,
+    color-mix(in oklab, var(--fs-mustard) 55%, transparent) 0deg 7.5deg,
+    color-mix(in oklab, var(--fs-teal) 25%, transparent) 7.5deg 15deg
+  );
+  mask-image: radial-gradient(circle at center, #000 18%, transparent 70%);
+}
+
+/* Subtle suds bubble texture for light sections. */
+.counter-grain {
+  position: relative;
+  isolation: isolate;
+  background-image:
+    radial-gradient(circle at 15% 20%, color-mix(in oklab, var(--fs-teal) 14%, transparent) 0%, transparent 45%),
+    radial-gradient(circle at 85% 75%, color-mix(in oklab, var(--fs-mustard) 16%, transparent) 0%, transparent 45%);
+}
+
+/* Glossy water-sheen stripes on aqua/blue sections. */
+.pinstripe {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    color-mix(in oklab, var(--fs-paper) 14%, transparent) 0 3px,
+    transparent 3px 28px
+  );
+}
+
+/* Soap bubble polka dots for cards and hero texture. */
+.dots {
+  background-image: radial-gradient(color-mix(in oklab, var(--fs-brand) 18%, transparent) 1.6px, transparent 1.8px);
+  background-size: 18px 18px;
+}
+
+/* Scalloped foam bottom edge, like a car-wash ticket. */
+.scallop-bottom {
+  --scallop: 14px;
+  mask:
+    radial-gradient(var(--scallop) at 50% 100%, #0000 98%, #000) 50% / calc(var(--scallop) * 2) 100% repeat-x;
+}
+
+/* Chunky 3D sign lettering. */
+.sign-extrude {
+  text-shadow:
+    1px 1px 0 var(--fs-ink),
+    2px 2px 0 var(--fs-ink),
+    3px 3px 0 var(--fs-ink),
+    4px 4px 0 var(--fs-ink),
+    5px 5px 0 var(--fs-ink),
+    6px 6px 0 var(--fs-ink),
+    7px 7px 0 var(--fs-ink);
+}
+
+.sign-extrude-sm {
+  text-shadow:
+    1px 1px 0 var(--fs-ink),
+    2px 2px 0 var(--fs-ink),
+    3px 3px 0 var(--fs-ink),
+    4px 4px 0 var(--fs-ink);
+}
+
+.text-stroke {
+  -webkit-text-stroke: 2px var(--fs-ink);
+  paint-order: stroke fill;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-marquee,
+  .animate-spin-slow,
+  .animate-sunburst,
+  .animate-float-slow,
+  .animate-twinkle {
+    animation: none;
+  }
+}
