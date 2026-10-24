@@ -95,25 +95,35 @@ const token = "grid place-items-center rounded-full border-[3px] border-ink shad
 
 /**
  * Illustrated car rolling through suds, wash brushes, water droplets & shine sparkles.
- * Shown in the hero when no hero photo is set, or alongside the wash bay scene.
  */
-export function HeroArt({ ringText, center }: { ringText: string; center: string }) {
+export function HeroArt({
+  ringText,
+  center,
+  compact = false,
+}: {
+  ringText: string;
+  center: string;
+  compact?: boolean;
+}) {
   const reduce = useReducedMotion();
 
   return (
-    <div className="relative mx-auto w-full max-w-[26rem] sm:max-w-[30rem]">
-      <div aria-hidden="true" className="sunburst animate-sunburst absolute -inset-[22%] rounded-full opacity-90" />
+    <div className={cn("relative mx-auto w-full", compact ? "max-w-md lg:max-w-none" : "max-w-[26rem] sm:max-w-[30rem]")}>
+      {!compact && <div aria-hidden="true" className="sunburst animate-sunburst absolute -inset-[22%] rounded-full opacity-90" />}
 
       {/* Main Illustrated Car Wash Bay Card */}
       <motion.div
-        className="relative z-10 overflow-hidden rounded-3xl border-[3px] border-ink bg-paper p-4 shadow-[10px_10px_0_0_var(--fs-ink)] sm:p-6"
-        initial={reduce ? false : { opacity: 0, y: 28, rotate: -2 }}
-        animate={{ opacity: 1, y: 0, rotate: 1.5 }}
+        className={cn(
+          "relative z-10 overflow-hidden rounded-3xl border-[3px] border-ink bg-paper shadow-[8px_8px_0_0_var(--fs-ink)]",
+          compact ? "p-3.5 sm:p-4" : "p-4 sm:p-6 shadow-[10px_10px_0_0_var(--fs-ink)]",
+        )}
+        initial={reduce ? false : { opacity: 0, y: 24, rotate: compact ? -1 : -2 }}
+        animate={{ opacity: 1, y: 0, rotate: compact ? -1 : 1.5 }}
         whileHover={reduce ? undefined : { rotate: 0, scale: 1.01 }}
         transition={reduce ? { duration: 0 } : { type: "spring", stiffness: 150, damping: 15, delay: 0.15 }}
       >
         {/* Top Retro Wash Arch Header */}
-        <div className="flex items-center justify-between rounded-2xl border-[3px] border-ink bg-brand px-4 py-2 text-paper shadow-[0_4px_0_0_var(--fs-ink)]">
+        <div className="flex items-center justify-between rounded-2xl border-[3px] border-ink bg-brand px-3.5 py-2 text-paper shadow-[0_4px_0_0_var(--fs-ink)]">
           <span className="flex items-center gap-1.5 font-display text-xs uppercase tracking-wider sm:text-sm">
             <Sparkles className="size-4 fill-mustard text-mustard" aria-hidden="true" />
             Suds &amp; Shine Bay
@@ -124,7 +134,7 @@ export function HeroArt({ ringText, center }: { ringText: string; center: string
         </div>
 
         {/* Illustrated Car Rolling Through Suds & Brushes */}
-        <div className="relative mt-4 overflow-hidden rounded-2xl border-[3px] border-ink bg-gradient-to-b from-cream via-cream to-teal/25 pt-4 pb-2">
+        <div className="relative mt-3 overflow-hidden rounded-2xl border-[3px] border-ink bg-gradient-to-b from-cream via-cream to-teal/25 pt-3 pb-1.5">
           <svg
             viewBox="0 0 420 250"
             className="h-auto w-full"
@@ -287,25 +297,29 @@ export function HeroArt({ ringText, center }: { ringText: string; center: string
         </div>
       </motion.div>
 
-      {/* Spinning Retro Sticker Badge */}
-      <SpinBadge
-        text={ringText}
-        className="absolute -bottom-8 -left-3 z-20 w-28 -rotate-6 sm:-bottom-10 sm:-left-8 sm:w-34"
-      >
-        <span className="px-1 text-center font-display text-xs uppercase leading-tight sm:text-sm">{center}</span>
-      </SpinBadge>
+      {!compact && (
+        <>
+          {/* Spinning Retro Sticker Badge */}
+          <SpinBadge
+            text={ringText}
+            className="absolute -bottom-8 -left-3 z-20 w-28 -rotate-6 sm:-bottom-10 sm:-left-8 sm:w-34"
+          >
+            <span className="px-1 text-center font-display text-xs uppercase leading-tight sm:text-sm">{center}</span>
+          </SpinBadge>
 
-      {/* Floating Bobbing Tokens */}
-      <Bob className="-left-3 -top-5 z-20 sm:-left-6" delay={0}>
-        <span className={cn(token, "size-14 bg-mustard text-ink sm:size-16")}>
-          <Droplets className="size-7 sm:size-8" strokeWidth={2} />
-        </span>
-      </Bob>
-      <Bob className="-right-2 -top-4 z-20 sm:-right-5" delay={0.25}>
-        <span className={cn(token, "size-13 bg-teal text-ink sm:size-15")}>
-          <SprayCan className="size-6 sm:size-7" strokeWidth={2} />
-        </span>
-      </Bob>
+          {/* Floating Bobbing Tokens */}
+          <Bob className="-left-3 -top-5 z-20 sm:-left-6" delay={0}>
+            <span className={cn(token, "size-14 bg-mustard text-ink sm:size-16")}>
+              <Droplets className="size-7 sm:size-8" strokeWidth={2} />
+            </span>
+          </Bob>
+          <Bob className="-right-2 -top-4 z-20 sm:-right-5" delay={0.25}>
+            <span className={cn(token, "size-13 bg-teal text-ink sm:size-15")}>
+              <SprayCan className="size-6 sm:size-7" strokeWidth={2} />
+            </span>
+          </Bob>
+        </>
+      )}
     </div>
   );
 }

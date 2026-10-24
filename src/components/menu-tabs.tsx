@@ -5,7 +5,7 @@ import { CheckCircle2, Phone, Sparkles } from "lucide-react";
 import Image from "next/image";
 import { useId, useState } from "react";
 
-import { buttonMustard, focusRing } from "@/components/styles";
+import { buttonCream, buttonMustard, focusRing } from "@/components/styles";
 import { cn } from "@/lib/cn";
 
 export type MenuTabItem = {
@@ -19,6 +19,7 @@ export type MenuTabItem = {
   signature: boolean;
   prices: { label: string; price: string }[];
   price: string;
+  photo: { src: string; alt: string; width: number; height: number } | null;
 };
 
 export type MenuTabCategory = {
@@ -33,10 +34,14 @@ export function MenuTabs({
   categories,
   tel,
   phoneDisplay,
+  extraPhones = [],
+  menuNote,
 }: {
   categories: MenuTabCategory[];
   tel?: string | null;
   phoneDisplay?: string;
+  extraPhones?: { label: string; href: string }[];
+  menuNote?: string;
 }) {
   const [active, setActive] = useState(categories[0]?.id ?? "");
   const reduce = useReducedMotion();
@@ -123,6 +128,19 @@ export function MenuTabs({
                           )}
                         >
                           <div>
+                            {item.photo && (
+                              <div className="mb-3.5 overflow-hidden rounded-xl border-2 border-ink bg-cream">
+                                <Image
+                                  src={item.photo.src}
+                                  alt={item.photo.alt}
+                                  width={item.photo.width}
+                                  height={item.photo.height}
+                                  sizes="(min-width: 768px) 280px, 90vw"
+                                  className="aspect-[16/10] h-auto w-full object-cover"
+                                />
+                              </div>
+                            )}
+
                             <div className="flex flex-wrap items-start justify-between gap-2">
                               <div className="flex flex-wrap items-center gap-2">
                                 <span className="font-display text-xl uppercase leading-tight tracking-wide text-ink">
@@ -198,21 +216,35 @@ export function MenuTabs({
                     width={current.photo.width}
                     height={current.photo.height}
                     sizes="272px"
-                    className="aspect-[4/5] h-auto w-full rounded-xl object-cover"
+                    className="h-auto w-full rounded-xl object-cover"
                   />
                 </figure>
               )}
             </div>
 
+            {menuNote && (
+              <p className="mt-6 rounded-2xl border-2 border-dashed border-ink/25 bg-cream/60 px-4 py-3 text-sm font-semibold text-ink/85">
+                {menuNote}
+              </p>
+            )}
+
             {tel && phoneDisplay && (
-              <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl border-[3px] border-ink bg-ink px-5 py-4 text-paper">
+              <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border-[3px] border-ink bg-ink px-5 py-4 text-paper">
                 <p className="text-sm font-semibold sm:text-base">
-                  Driving a sedan, SUV, or truck? Pull up to 10934 Lem Turner Rd or call for today&apos;s bay availability.
+                  Driving a sedan, SUV, or truck? Pull up to 10934 Lem Turner Rd or call for a quote and bay availability.
                 </p>
-                <a href={tel} className={buttonMustard}>
-                  <Phone className="size-4" aria-hidden="true" />
-                  Call {phoneDisplay}
-                </a>
+                <div className="flex flex-wrap gap-3">
+                  <a href={tel} className={buttonMustard}>
+                    <Phone className="size-4" aria-hidden="true" />
+                    Call {phoneDisplay}
+                  </a>
+                  {extraPhones.map((line) => (
+                    <a key={line.href} href={line.href} className={buttonCream}>
+                      <Phone className="size-4 text-brand" aria-hidden="true" />
+                      {line.label}
+                    </a>
+                  ))}
+                </div>
               </div>
             )}
           </motion.div>

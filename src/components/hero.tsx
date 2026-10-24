@@ -13,6 +13,7 @@ import { cn } from "@/lib/cn";
 import { phoneLabel, telHref } from "@/lib/contact";
 import { hoursConfirmed } from "@/lib/hours";
 import { directionsHref } from "@/lib/maps";
+import { orderingLinks } from "@/lib/ordering";
 import { heroPhoto, photoDimensions } from "@/lib/photos";
 import { formatCount, reviewScores } from "@/lib/reviews";
 
@@ -26,6 +27,8 @@ export function Hero() {
   const tagline = site.tagline.trim();
   const showStatus = hoursConfirmed(site.hours);
   const clock = { hours: site.hours, closedNotice: site.closedNotice, phone: site.phone };
+  const phoneChannels = orderingLinks(site).filter((link) => link.kind === "phone");
+  const secondaryPhones = phoneChannels.filter((link) => link.href !== tel);
   const ringText = [
     ...(site.servesCuisine ?? []).slice(0, 3),
     site.address.neighborhood.trim(),
@@ -42,7 +45,7 @@ export function Hero() {
       <div
         className={cn(
           container,
-          "relative grid items-center gap-14 pb-20 pt-10 sm:pt-16 lg:grid-cols-[1.2fr_1fr] lg:gap-10 lg:pb-24",
+          "relative grid items-center gap-14 pb-20 pt-10 sm:pt-16 lg:grid-cols-[1.18fr_1fr] lg:gap-10 lg:pb-24",
         )}
       >
         <div className="relative z-10">
@@ -54,8 +57,8 @@ export function Hero() {
           )}
           <HeroTitle main={main} script={script} />
           {tagline && (
-            <p className="mt-10 max-w-xl text-xl font-semibold leading-snug text-ink sm:mt-12 sm:text-2xl">
-              {tagline}
+            <p className="mt-10 max-w-xl font-display text-2xl uppercase leading-snug tracking-wide text-ink sm:mt-12 sm:text-3xl">
+              “{tagline}”
             </p>
           )}
 
@@ -72,20 +75,29 @@ export function Hero() {
                   )}
                 >
                   <Star className="size-4 fill-mustard stroke-ink" strokeWidth={1.5} aria-hidden="true" />
-                  {score.value.toFixed(1)} on {score.source} · {formatCount(score.count)} reviews
+                  {score.value.toFixed(1)} on {score.source} ·{" "}
+                  {score.source === "Facebook"
+                    ? `100% recommend (${formatCount(score.count)} reviews)`
+                    : `${formatCount(score.count)} reviews`}
                 </a>
               ))}
               {showStatus && <ShopStatusPill input={clock} />}
             </div>
           )}
 
-          <div className="mt-8 flex flex-wrap gap-4">
+          <div className="mt-8 flex flex-wrap gap-3.5">
             {tel && (
               <a href={tel} className={buttonRed}>
                 <Phone className="size-5" aria-hidden="true" />
                 Call {phoneLabel(site.phone)}
               </a>
             )}
+            {secondaryPhones.map((line) => (
+              <a key={line.href} href={line.href} className={buttonCream}>
+                <Phone className="size-5 text-brand" aria-hidden="true" />
+                {line.label}
+              </a>
+            ))}
             {directions && (
               <a href={directions} target="_blank" rel="noopener noreferrer" className={buttonMustard}>
                 <MapPin className="size-5" aria-hidden="true" />
@@ -93,38 +105,42 @@ export function Hero() {
               </a>
             )}
             <a href="#services" className={buttonCream}>
-              <Sparkles className="size-5" aria-hidden="true" />
-              Wash Services
+              <Sparkles className="size-5 text-brand" aria-hidden="true" />
+              Wash &amp; Detail Menu
             </a>
           </div>
           {site.address.full.trim() && (
-            <p className="mt-6 flex items-center gap-2 text-sm font-bold uppercase tracking-[0.12em] text-ink/80">
+            <p className="mt-6 flex flex-wrap items-center gap-2 text-sm font-bold uppercase tracking-[0.12em] text-ink/85">
               <MapPin className="size-4 shrink-0 text-brand" aria-hidden="true" />
-              {site.address.full}
+              <span>{site.address.full}</span>
+              {site.opened.trim() && <span className="text-ink/60">· Opened {site.opened.trim()}</span>}
             </p>
           )}
         </div>
 
-        <div className="relative z-10">
+        <div className="relative z-10 space-y-8">
           {photo ? (
-            <figure className="relative mx-auto mb-10 max-w-md rotate-1 rounded-3xl border-[3px] border-ink bg-paper p-3 shadow-[10px_10px_0_0_var(--fs-ink)] lg:mb-0 lg:max-w-none">
-              <Image
-                src={photo.src}
-                alt={photo.alt}
-                {...photoDimensions(photo)}
-                priority
-                sizes="(min-width: 1024px) 40vw, 90vw"
-                className="h-auto w-full rounded-2xl object-cover"
-              />
-              <SpinBadge
-                text={ringText || site.name}
-                className="absolute -bottom-10 -left-4 w-28 -rotate-6 sm:-left-10 sm:w-36"
-              >
-                <span className="px-1 text-center font-display text-xs uppercase leading-tight sm:text-sm">
-                  {center}
-                </span>
-              </SpinBadge>
-            </figure>
+            <>
+              <figure className="relative mx-auto mb-10 max-w-md rotate-1 rounded-3xl border-[3px] border-ink bg-paper p-3 shadow-[10px_10px_0_0_var(--fs-ink)] lg:mb-0 lg:max-w-none">
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  {...photoDimensions(photo)}
+                  priority
+                  sizes="(min-width: 1024px) 40vw, 90vw"
+                  className="h-auto w-full rounded-2xl object-cover"
+                />
+                <SpinBadge
+                  text={ringText || site.name}
+                  className="absolute -bottom-9 -left-3 w-28 -rotate-6 sm:-left-8 sm:w-34"
+                >
+                  <span className="px-1 text-center font-display text-xs uppercase leading-tight sm:text-sm">
+                    {center}
+                  </span>
+                </SpinBadge>
+              </figure>
+              <HeroArt ringText={ringText || site.name} center={center} compact />
+            </>
           ) : (
             <HeroArt ringText={ringText || site.name} center={center} />
           )}

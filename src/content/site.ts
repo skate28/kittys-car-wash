@@ -1,14 +1,14 @@
 import type { SiteContent } from "./types";
 
-const MAP_URL =
-  "https://www.google.com/maps/search/?api=1&query=Kitty%27s+Car+Wash+10934+Lem+Turner+Rd+Jacksonville+FL+32218";
+const MAP_URL = "https://maps.google.com/?cid=12265392396310715910";
+const FACEBOOK_URL = "https://www.facebook.com/KittysCarWash";
 
 export const site: SiteContent = {
   name: "Kitty's Car Wash",
-  tagline: "Hand Car Wash & Auto Detailing on Lem Turner Road",
+  tagline: "We go beyond the surface",
   description:
-    "Kitty's Car Wash is a hand car wash and auto detailing shop at 10934 Lem Turner Rd in Northside Jacksonville, FL. Pull up for exterior hand washes, wax and shine, tire shine, vacuuming, and thorough interior and full vehicle detailing for cars, trucks, and SUVs. Call (904) 300-1656.",
-  opened: "",
+    "Kitty's Car Wash is a family-run, woman-owned hand car wash and auto detailing shop at 10934 Lem Turner Rd on Jacksonville's Northside. Pull up for exterior hand washes, inside-and-out cleaning, hand wax and buff, upholstery and carpet shampooing, and full interior detailing with seat removal, while you relax in our air-conditioned waiting lobby. Open Tuesday–Sunday. Call (904) 300-1656 or (904) 800-9496.",
+  opened: "2021",
 
   address: {
     street: "10934 Lem Turner Rd",
@@ -20,7 +20,8 @@ export const site: SiteContent = {
     country: "US",
     full: "10934 Lem Turner Rd, Jacksonville, FL 32218",
   },
-  locationHint: "On Lem Turner Road in Northside Jacksonville — pull right up to the wash bay.",
+  locationHint:
+    "On Lem Turner Road on Jacksonville's Northside (about 5 miles from JAX Airport), with shaded carport wash bays and an air-conditioned inside waiting lobby.",
 
   geo: {
     latitude: 30.434611,
@@ -35,11 +36,11 @@ export const site: SiteContent = {
   },
 
   closedNotice:
-    "We're closed right now. Open Tue–Wed 10 AM–4 PM, Thu 9:30 AM–5 PM, Fri–Sat 9:30 AM–6 PM, and Sun 10 AM–4 PM. Closed Mondays.",
+    "We're closed right now. We're open Tuesday–Wednesday 10 AM–4 PM, Thursday 9:30 AM–5 PM, Friday–Saturday 9:30 AM–6 PM, and Sunday 10 AM–4 PM. Closed Mondays.",
 
   hours: {
     timezone: "America/New_York",
-    summary: "Tue–Wed 10 AM–4 PM · Thu 9:30 AM–5 PM · Fri–Sat 9:30 AM–6 PM · Sun 10 AM–4 PM · Closed Mon",
+    summary: "Tue–Wed & Sun 10 AM–4 PM · Thu 9:30 AM–5 PM · Fri–Sat 9:30 AM–6 PM · Closed Mon",
     openTime: null,
     closeTime: null,
     byDay: {
@@ -53,12 +54,17 @@ export const site: SiteContent = {
     },
   },
 
-  priceRange: "",
-  paymentNote: "",
+  priceRange: "$$",
+  paymentNote: "Cash, cards, Cash App & Zelle",
 
-  orderingLinks: [],
+  orderingLinks: [
+    { label: "Call (904) 300-1656", href: "tel:+19043001656", kind: "phone" },
+    { label: "Detail Line (904) 800-9496", href: "tel:+19048009496", kind: "phone" },
+  ],
 
-  socials: [],
+  socials: [
+    { label: "Facebook", href: FACEBOOK_URL },
+  ],
 
   rating: {
     value: 5.0,
@@ -66,6 +72,14 @@ export const site: SiteContent = {
     source: "Google",
     sourceUrl: MAP_URL,
   },
+  extraRatings: [
+    {
+      value: 5.0,
+      count: 5,
+      source: "Facebook",
+      sourceUrl: `${FACEBOOK_URL}/reviews`,
+    },
+  ],
 
   testimonials: [
     {
@@ -77,183 +91,445 @@ export const site: SiteContent = {
     },
     {
       quote:
-        "Had a great experience at this location! It was my first time ever using them, and the staff made the whole process easy, comfortable, and stress-free. They were friendly, professional, and took the time to explain everything. I definitely recommend this place if you're looking for a smooth and hassle-free experience.",
+        "I dropped off a rental for a quick wash before returning it and I couldn't believe the level of detail that was put in cleaning the car. The guy who did the wash didn't leave a speck of dust or sand. I wasn't expecting that level of service for their prices. This will be the only car wash I go to when i'm in town",
       rating: 5,
       sourceLabel: "Google",
       sourceUrl: MAP_URL,
     },
     {
-      quote: "Great customer service and cleaning and my car smelled so good!",
+      quote:
+        "Had a great experience at this location! It was my first time ever using them, and the staff made the whole process easy, comfortable, and stress-free. They were friendly, professional, and took the time to explain everything.",
       rating: 5,
       sourceLabel: "Google",
       sourceUrl: MAP_URL,
     },
     {
-      quote: "My experience was good they are very friendly easy going and job well done.",
+      quote:
+        "Just had my truck washed and cleaned inside and out. It is GLEAMING! I may never wash it again myself! Great courteous service. Will definitely be back",
       rating: 5,
       sourceLabel: "Google",
       sourceUrl: MAP_URL,
     },
     {
-      quote: "Very excellent service and prices!!",
+      quote:
+        "Even with 2 cars ahead of me, I got in and out pretty quickly. The staff was very professional and corrected anything I didnt like. I always come here to have both my trucks washed.",
       rating: 5,
       sourceLabel: "Google",
       sourceUrl: MAP_URL,
+    },
+    {
+      quote:
+        "I’ve been going to the same car wash for years. I came by and let Kitty’s clean my car. When I say my car was immaculate!! I’ve moved and I drive over 25 minutes so they can clean my car.",
+      rating: 5,
+      sourceLabel: "Google",
+      sourceUrl: MAP_URL,
+    },
+    {
+      quote: "The service was quick. Awesome job on both the interior and exterior. Loved the work. Great price.",
+      rating: 5,
+      sourceLabel: "Google",
+      sourceUrl: MAP_URL,
+    },
+    {
+      quote: "Wonderful customer service and excellent work",
+      sourceLabel: "Facebook",
+      sourceUrl: `${FACEBOOK_URL}/reviews`,
     },
   ],
 
   faq: [
     {
-      question: "Where is Kitty's Car Wash located?",
-      answer: "We are located at 10934 Lem Turner Rd, Jacksonville, FL 32218 on the Northside.",
+      question: "What are your hours?",
+      answer:
+        "Our listed Google hours are Tuesday and Wednesday 10 AM–4 PM, Thursday 9:30 AM–5 PM, Friday and Saturday 9:30 AM–6 PM, and Sunday 10 AM–4 PM (closed Mondays). Weather can affect outdoor wash hours, so give us a quick call at (904) 300-1656 before heading over.",
     },
     {
-      question: "What are your hours of operation?",
+      question: "Do I need an appointment, or can I drive right up?",
       answer:
-        "We are open Tuesday & Wednesday 10:00 AM–4:00 PM, Thursday 9:30 AM–5:00 PM, Friday & Saturday 9:30 AM–6:00 PM, and Sunday 10:00 AM–4:00 PM. Closed Mondays.",
+        "Drive-ups are welcome for hand washes and standard details—just pull into the lot at 10934 Lem Turner Rd. For a Deluxe Interior Detail or a Full Interior Detail with Seat Removal, call (904) 800-9496 or (904) 300-1656 to check availability and get a quote for your vehicle.",
     },
     {
-      question: "Do you wash trucks and SUVs as well as sedans?",
+      question: "Is there somewhere comfortable to wait while my car is cleaned?",
       answer:
-        "Yes! We hand wash and detail sedans, coupes, SUVs, pickups, and trucks. Call (904) 300-1656 or pull up to the bay for vehicle pricing.",
+        "Yes. We have an air-conditioned inside waiting lobby with seating, a TV, complimentary water, and snacks available for purchase while our team works on your vehicle.",
     },
     {
-      question: "Do I need an appointment or can I pull right up?",
+      question: "What payment methods do you accept?",
       answer:
-        "You can pull right up during open hours or give us a call at (904) 300-1656 to check current bay availability and detail options.",
+        "We accept cash, credit and debit cards, Cash App ($kittyscarwash), and Zelle (Kittyscarwash@gmail.com).",
+    },
+    {
+      question: "Do you wash trucks, large SUVs, and rental or Turo vehicles?",
+      answer:
+        "Yes. We hand-wash and detail everything from compact cars to midsize SUVs, full-size pickups, vans, and heavy-duty 2500/3500 trucks. We're also about 5 miles from JAX Airport and regularly handle quick turnarounds for rental cars, rideshare drivers, and Turo hosts.",
     },
   ],
 
-  menuNote: "Pricing depends on vehicle size and condition. Call (904) 300-1656 or pull up to the wash bay for a quote.",
+  menuNote:
+    "Prices shown are from our posted boards and may vary depending on vehicle size and condition. Call (904) 300-1656 or (904) 800-9496 for a quote on your vehicle.",
 
   menu: [
     {
-      id: "hand-wash-exterior",
-      name: "Hand Wash & Exterior",
-      description:
-        "Careful hand washing that never cuts corners — safe for daily drivers, trucks, and weekend rides.",
+      id: "wash-packages",
+      name: "Hand Wash Packages",
+      description: "100% hand car wash under shaded bays—gentle on paint, thorough on wheels, glass, and trim.",
       items: [
         {
-          id: "exterior-hand-wash",
+          id: "outside-hand-wash",
+          name: "Outside Hand Wash",
+          description:
+            "Exterior hand wash and dry, wheels and tires cleaned, and exterior windows. Heavy-duty 2500/3500 trucks start at $40 and up.",
+          includes: ["Exterior hand wash & towel dry", "Wheels & tires cleaned", "Streak-free exterior glass"],
+          sizes: [
+            { label: "Cars (Compact)", price: 15 },
+            { label: "Small SUV / Midsize", price: 20 },
+            { label: "Large SUV / Pickup", price: 30 },
+            { label: "Large Truck (2500+)", price: 40, priceFrom: true },
+          ],
+        },
+        {
+          id: "inside-and-out-wash",
           signature: true,
-          badge: "Local Favorite",
-          name: "Exterior Hand Wash",
-          description: "Suds bath by hand, gentle mitt wash, wheel & rim cleaning, spot-free rinse, and hand towel dry.",
-          includes: ["Rich foam hand wash", "Wheel & rim scrub", "Spot-free rinse & microfiber dry"],
+          badge: "Lot Favorite",
+          name: "Inside & Out Basic Cleaning",
+          description:
+            "Exterior hand wash and dry plus interior vacuum, dash and console wipe-down, and inside & outside windows. Heavy-duty 2500/3500 trucks start at $50 and up.",
+          includes: [
+            "Exterior hand wash & dry",
+            "Interior carpet & seat vacuum",
+            "Dash & console wipe-down",
+            "Inside & outside windows",
+          ],
+          sizes: [
+            { label: "Cars (Compact)", price: 25 },
+            { label: "Small SUV / Midsize", price: 30 },
+            { label: "Large SUV / Pickup", price: 40 },
+            { label: "Large Truck (2500+)", price: 50, priceFrom: true },
+          ],
         },
         {
-          id: "wash-and-tire-shine",
-          signature: true,
-          name: "Hand Wash & Tire Shine",
-          description: "Complete exterior hand wash plus deep gloss tire dressing and exterior glass wipe-down.",
-          includes: ["Exterior hand wash", "Tire & rim dressing", "Streak-free exterior windows"],
-        },
-        {
-          id: "truck-suv-hand-wash",
-          name: "Truck & SUV Hand Wash",
-          description: "Full exterior hand wash tailored for pickups, full-size SUVs, and lifted trucks.",
-          includes: ["High-clearance hand wash", "Wheel wells & running boards", "Hand dry & tire shine"],
-        },
-        {
-          id: "wax-and-shine",
-          name: "Hand Wax & Paint Shine",
-          description: "Protective wax application for deep mirror gloss and water-beading protection.",
-          includes: ["Exterior hand wash prep", "Hand wax coat", "Glossy microfiber buff"],
-        },
-      ],
-    },
-    {
-      id: "interior-full-detail",
-      name: "Interior & Full Detailing",
-      description:
-        "Thorough inside-and-out vehicle detailing that leaves your cabin fresh, spotless, and smelling great.",
-      items: [
-        {
-          id: "inside-and-out-combo",
+          id: "basic-standard-detail",
           signature: true,
           badge: "Most Popular",
-          name: "Inside & Out Wash + Vacuum",
-          description: "Exterior hand wash paired with interior vacuuming, dash & console wipe-down, and interior glass.",
-          includes: ["Full exterior hand wash & dry", "Carpet & seat vacuum", "Dash, doors & console wipe-down", "Fresh cabin scent"],
-        },
-        {
-          id: "interior-detail",
-          name: "Deep Interior Detail",
-          description: "Thorough cabin cleaning for seats, carpets, mats, vents, cupholders, door jambs, and trim.",
-          includes: ["Deep vacuum & crevice detail", "Upholstery & mat care", "Trim, dash & panel conditioning", "Inside & out glass"],
-        },
-        {
-          id: "full-vehicle-detail",
-          signature: true,
-          badge: "Showroom Shine",
-          name: "Full Vehicle Detail",
-          description: "Complete bumper-to-bumper hand wash, wax protection, and deep interior detailing.",
-          includes: ["Hand wash, wax & tire shine", "Deep interior detail & vacuum", "Door jambs, rims & trim dressed", "Signature fresh scent"],
+          name: "Basic Standard Detail",
+          description:
+            "Complete inside-and-out hand wash and detail hitting the door jambs, cracks, and crevices other washes miss.",
+          includes: [
+            "Exterior hand wash & dry",
+            "Bug & debris removal",
+            "Windows cleaned inside & out",
+            "Wheels & tires cleaned + tire dressing",
+            "Interior wipe down & door jambs cleaned",
+            "Cracks & crevices cleaned + full vacuum",
+          ],
+          sizes: [
+            { label: "Compact / Small SUV", price: 30 },
+            { label: "Midsize SUV / Truck", price: 35 },
+            { label: "Large Truck / SUV / Van", price: 45 },
+          ],
         },
       ],
     },
     {
-      id: "finishing-touches",
-      name: "Add-Ons & Finishing",
-      description: "Extra care for tires, trim, carpets, and cabin freshness.",
+      id: "detail-packages",
+      name: "Full & Deep Detailing",
+      description: "From hand wax and leather conditioning to full seat-out interior restoration.",
       items: [
         {
-          id: "vacuum-service",
-          name: "Interior Vacuum & Wipe-Down",
-          description: "Thorough vacuum of floors, seats, and trunk plus dashboard and console wipe-down.",
+          id: "full-detail",
+          signature: true,
+          badge: "Showroom Shine",
+          name: "Full Detail",
+          description:
+            "Includes everything in the Basic Standard Detail, plus hand wax and buff off, leather & vinyl cleaned and conditioned, interior protectant & cleaner applied, and optional fragrance.",
+          includes: [
+            "Everything in Basic Standard Detail",
+            "Hand wax & buff off",
+            "Leather & vinyl cleaned and conditioned",
+            "Interior protectant & cleaner applied",
+            "Optional cabin fragrance",
+          ],
+          sizes: [
+            { label: "Compact / Small SUV", price: 55 },
+            { label: "Midsize SUV / Truck", price: 65 },
+            { label: "Large Truck / SUV / Van", price: 75 },
+          ],
         },
         {
-          id: "tire-rim-shine",
-          name: "Tire & Rim Shine",
-          description: "Brake-dust scrub on rims and deep-gloss tire shine dressing.",
+          id: "deluxe-interior-detail",
+          signature: true,
+          badge: "Deep Cabin Reset",
+          name: "Deluxe Interior Detail",
+          description:
+            "Includes Basic Standard Detail & Full Detail, plus cloth seats shampooed, carpet shampooed, headliner cleaned, optional interior protectant applied, and optional fragrance.",
+          includes: [
+            "Includes Basic Standard & Full Detail",
+            "Cloth seats shampooed",
+            "Carpet shampooed",
+            "Headliner cleaned",
+            "Interior protectant & optional fragrance",
+          ],
+          price: 120,
+          priceFrom: true,
         },
         {
-          id: "cabin-fresh-scent",
-          name: "Cabin Freshener & Deodorizing",
-          description: "Leaves your car interior smelling clean and fresh.",
+          id: "seat-removal-detail",
+          signature: true,
+          badge: "Beyond the Surface",
+          name: "Full Interior Detail with Seat Removal",
+          description:
+            "Yes, we remove the seats! Allows us to reach under the seats, around seat tracks, between tight spaces, and deep into the carpet—great for family, heavily used, and rental/rideshare vehicles. Call (904) 800-9496 for a quote.",
+          includes: [
+            "Seats removed for deep carpet & track access",
+            "Removes hidden dirt, crumbs, hair & debris",
+            "Embedded pet hair & trapped odor removal",
+            "Complete interior restoration",
+          ],
+        },
+      ],
+    },
+    {
+      id: "add-ons-specialty",
+      name: "Add-Ons & Specialty",
+      description: "Targeted interior, exterior, and mobile services to keep your vehicle looking sharp.",
+      items: [
+        {
+          id: "upholstery-shampoo",
+          name: "Upholstery Shampoo",
+          description: "Deep shampooing for cloth seats and upholstery to lift stains and refresh fabric.",
+          price: 35,
+          priceFrom: true,
+        },
+        {
+          id: "carpet-shampoo",
+          name: "Carpet & Floor Mat Shampoo",
+          description: "Deep carpet and mat shampooing to remove ground-in dirt, sand, and odors.",
+        },
+        {
+          id: "hand-wax-and-buff",
+          name: "Hand Wax & Buffing",
+          description: "Hand-applied wax and buff off for deep paint gloss and protection.",
+        },
+        {
+          id: "leather-vinyl-conditioning",
+          name: "Leather & Vinyl Cleaning & Conditioning",
+          description: "Cleans, conditions, and protects leather seats, dashboards, and vinyl trim.",
+        },
+        {
+          id: "pet-hair-odor-removal",
+          name: "Pet Hair & Odor Removal",
+          description: "Deep extraction of embedded pet hair and trapped interior odors, with optional fragrance.",
+        },
+        {
+          id: "headlight-cleaning",
+          name: "Headlight Cleaning & Buffing",
+          description: "Buffs and cleans cloudy headlights for a clearer, brighter look.",
+        },
+        {
+          id: "tire-inflation",
+          name: "Tire Inflation & Tire Dressing",
+          description: "Tire pressure check and inflation starting at $5; wheel cleaning and tire shine included with washes.",
+          price: 5,
+          priceFrom: true,
+        },
+        {
+          id: "mobile-detailing",
+          name: "Mobile Detailing & Rental / Turo Turnovers",
+          description:
+            "Mobile detailing unit available, plus fast, meticulous inside-and-out turnarounds for rental cars, Turo hosts, and rideshare vehicles just 5 miles from JAX Airport.",
         },
       ],
     },
   ],
 
-  photos: [],
+  photos: [
+    {
+      src: "/images/hero-chrysler-pacifica-and-sign.webp",
+      alt: "Freshly washed white Chrysler Pacifica and Mazda SUV on the lot in front of the Kitty's Carwash 904-300-1656 sign on Lem Turner Road",
+      category: "storefront",
+      credit: "owner",
+      width: 1440,
+      height: 1440,
+      hero: true,
+    },
+    {
+      src: "/images/full-detail-purple-bmw-x6.webp",
+      alt: "Detailed purple BMW X6 M SUV gleaming in the sun on the gravel lot with the red-roofed wash bay behind it",
+      category: "food",
+      credit: "google-maps-ugc",
+      width: 1050,
+      height: 1400,
+    },
+    {
+      src: "/images/basic-standard-detail-silver-camry.webp",
+      alt: "Freshly washed silver Toyota Camry on the lot with the Kitty's Carwash roadside sign and wash canopy in the background",
+      category: "food",
+      credit: "owner",
+      width: 1440,
+      height: 1440,
+    },
+    {
+      src: "/images/outside-hand-wash-ford-f150-bay.webp",
+      alt: "Polished black Ford F-150 pickup truck parked under the red metal carport wash bay",
+      category: "food",
+      credit: "google-maps-ugc",
+      width: 1200,
+      height: 1600,
+    },
+    {
+      src: "/images/inside-and-out-wash-vw-suv-bay.webp",
+      alt: "Staff hand-cleaning the interior of a grey Volkswagen SUV under the metal wash canopy next to a black GMC pickup truck",
+      category: "food",
+      credit: "google-maps-ugc",
+      width: 1200,
+      height: 1600,
+    },
+    {
+      src: "/images/inside-and-out-wash-vw-suv-front.webp",
+      alt: "Clean metallic grey Volkswagen SUV parked under the gabled metal wash bay roof with doors open for detailing",
+      category: "food",
+      credit: "google-maps-ugc",
+      width: 900,
+      height: 1600,
+    },
+    {
+      src: "/images/full-detail-vw-suv-hood-shine.webp",
+      alt: "Close-up of the polished metallic grey hood and wheel of a Volkswagen SUV in front of the red-roofed wash bay",
+      category: "food",
+      credit: "google-maps-ugc",
+      width: 900,
+      height: 1600,
+    },
+    {
+      src: "/images/deluxe-interior-detail-cloth-seat.webp",
+      alt: "Freshly vacuumed and detailed two-tone cloth passenger seat and wiped-down interior door panel",
+      category: "food",
+      credit: "google-maps-ugc",
+      width: 1000,
+      height: 753,
+    },
+    {
+      src: "/images/basic-standard-detail-chevy-trax.webp",
+      alt: "Clean black Chevrolet Trax parked on the lot with the white carport bay and Kitty's trailer behind it",
+      category: "food",
+      credit: "google-maps-ugc",
+      width: 1000,
+      height: 1000,
+    },
+    {
+      src: "/images/hand-wax-and-buff-three-cars-canopy.webp",
+      alt: "Three freshly washed vehicles—a black Audi SUV, white Toyota Corolla, and black Chevrolet Trax—lined up in front of the white wash canopy",
+      category: "food",
+      credit: "google-maps-ugc",
+      width: 609,
+      height: 499,
+    },
+    {
+      src: "/images/mobile-detailing-gmc-truck-rig.webp",
+      alt: "Wrapped black GMC Sierra truck and trailer listing Interior, Pressure Washing, Mobile Detailing, Shampooing, Buffing & Waxing, and Headlights",
+      category: "food",
+      credit: "google-maps-ugc",
+      width: 535,
+      height: 514,
+    },
+    {
+      src: "/images/mobile-detailing-custom-cuts-trailer.webp",
+      alt: "Black dual-axle trailer with the pink Kitty's cat logo listing mobile detailing, pressure washing, and cleaning services",
+      category: "food",
+      credit: "owner",
+      width: 1166,
+      height: 1400,
+    },
+    {
+      src: "/images/storefront-lot-and-red-office.webp",
+      alt: "Kitty's Car Wash gravel lot on Lem Turner Road showing the red office building, white wash canopy, and red metal bay",
+      category: "storefront",
+      credit: "google-maps-ugc",
+      width: 1200,
+      height: 1600,
+    },
+    {
+      src: "/images/interior-waiting-lobby-counter.webp",
+      alt: "Inside air-conditioned waiting lobby with a wall-mounted TV, glass counter, refreshments, and framed Kitty's Carwash review poster",
+      category: "interior",
+      credit: "google-maps-ugc",
+      width: 1200,
+      height: 1600,
+    },
+    {
+      src: "/images/menu-board-detail-packages.webp",
+      alt: "Kitty's Carwash service and price board listing Basic Standard Detail, Full Detail, Deluxe Interior Detail, Upholstery Shampoo, and Tire Inflation",
+      category: "menu-board",
+      credit: "facebook-page",
+      width: 1080,
+      height: 1476,
+    },
+    {
+      src: "/images/logo-kittys-carwash.webp",
+      alt: "Kitty's Carwash circular logo with a car silhouette under a showerhead spray, 10934 Lem Turner Rd Jax FL 32218, and 904-300-1656",
+      category: "logo",
+      credit: "facebook-page",
+      width: 517,
+      height: 501,
+    },
+  ],
+  heroImage: "/images/hero-chrysler-pacifica-and-sign.webp",
 
   palette: {
-    ink: "#0B192C",
-    brand: "#0077B6",
-    brandDeep: "#023E8A",
+    ink: "#141115",
+    brand: "#E61E8C",
+    brandDeep: "#A80E63",
     accent: "#00B4D8",
     mustard: "#FFD100",
-    cream: "#F0F9FF",
+    cream: "#FFF7FB",
     paper: "#FFFFFF",
   },
 
   about: {
-    heading: "Real Hand Car Wash & Detailing on Lem Turner",
+    heading: "Hand car wash & deep detailing on Lem Turner Road",
     paragraphs: [
-      "Located at 10934 Lem Turner Rd on Jacksonville's Northside, Kitty's Car Wash is a neighborhood hand wash and detailing spot where the crew takes real pride in every vehicle that pulls into the bay.",
-      "Instead of rushing your ride through harsh automated tracks that miss the corners, our team washes by hand, scrubs the wheels, vacuums thoroughly, and details your interior until your vehicle looks and smells brand new.",
-      "Pull up during open hours for a smooth, friendly, hassle-free wash or give us a call at (904) 300-1656.",
+      "Kitty's Car Wash is a family-run, woman-owned hand car wash and detailing shop at 10934 Lem Turner Rd on Jacksonville's Northside. Since opening our lot in December 2021, we've built a 5.0-star reputation on one simple promise: we don't cut corners, and we go beyond the surface.",
+      "Every vehicle is washed by hand under shaded bays—from quick exterior washes and inside-and-out cleanings to hand wax and buff, leather conditioning, carpet and upholstery shampooing, and full interior details where we remove the seats to reach every track and crevice.",
+      "Pull up for a wash on your compact car, SUV, van, or full-size pickup truck, or drop off a rental or Turo vehicle before returning it near JAX Airport. While our crew works on your ride, you can cool off inside our air-conditioned waiting lobby with a TV, complimentary water, and snacks.",
     ],
   },
 
   heroKicker: "Lem Turner Rd · Northside Jacksonville",
 
   servesCuisine: [
-    "Hand Wash",
-    "Wax & Shine",
-    "Interior Detail",
-    "Tire Shine",
-    "Vacuum",
-    "Full Detail",
-    "Spot-Free Rinse",
-    "Lem Turner Local Favorite",
+    "100% Hand Car Wash",
+    "Inside & Out Cleaning",
+    "Basic Standard Detail",
+    "Full Vehicle Detail",
+    "Deluxe Interior Detail",
+    "Seat-Removal Deep Clean",
+    "Hand Wax & Buff",
+    "Upholstery & Carpet Shampoo",
+    "Leather Conditioning",
+    "Wheel & Tire Shine",
+    "Trucks & Full-Size SUVs",
+    "Cold AC Waiting Lobby",
+  ],
+
+  servicesOffered: [
+    "100% Hand Car Wash",
+    "Inside & Out Cleaning",
+    "Basic Standard Detail",
+    "Full Vehicle Detail",
+    "Deluxe Interior Detail",
+    "Seat-Removal Deep Clean",
+    "Hand Wax & Buff",
+    "Upholstery & Carpet Shampoo",
+    "Leather Conditioning",
+    "Wheel & Tire Shine",
+    "Trucks & Full-Size SUVs",
+    "Cold AC Waiting Lobby",
   ],
 
   seo: {
     title: "Kitty's Car Wash | Hand Car Wash & Auto Detailing on Lem Turner Rd, Jacksonville, FL",
     description:
-      "Hand car wash, wax & shine, tire shine, vacuum, and full auto detailing at 10934 Lem Turner Rd in Northside Jacksonville, FL. 5.0★ on Google. Call (904) 300-1656.",
+      "5.0-star hand car wash and auto detailing at 10934 Lem Turner Rd in Northside Jacksonville, FL. Inside & out hand washes, hand wax, upholstery shampoo, and full interior detailing. Call (904) 300-1656.",
   },
 
   footerCredit: "Built by nicklopacki.com",

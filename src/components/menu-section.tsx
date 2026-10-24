@@ -7,10 +7,14 @@ import { cn } from "@/lib/cn";
 import { phoneLabel, telHref } from "@/lib/contact";
 import { getMenuNote, menuView } from "@/lib/menu";
 import { formatPrice } from "@/lib/money";
-import { photoDimensions, photoForCategory } from "@/lib/photos";
+import { orderingLinks } from "@/lib/ordering";
+import { heroPhoto, photoDimensions, photoForCategory, photoForItemId } from "@/lib/photos";
 
 /** Categorized wash packages & detailing services. Hidden when there are no real categories. */
 export function MenuSection() {
+  const hero = heroPhoto(site.photos, site.heroImage);
+  const exclude = hero ? [hero.src] : [];
+
   const categories: MenuTabCategory[] = menuView(site).map((category) => ({
     id: category.id,
     name: category.name,
@@ -19,25 +23,32 @@ export function MenuSection() {
       const photo = photoForCategory(category.id, site.photos);
       return photo ? { src: photo.src, alt: photo.alt, ...photoDimensions(photo) } : null;
     })(),
-    items: category.items.map((item) => ({
-      id: item.id,
-      name: item.name.trim(),
-      description: item.description?.trim() ?? "",
-      badge: item.badge?.trim() ?? "",
-      duration: item.duration?.trim() ?? "",
-      includes: (item.includes ?? []).map((inc) => inc.trim()).filter(Boolean),
-      isNew: Boolean(item.isNew),
-      signature: Boolean(item.signature),
-      prices: (item.sizes ?? [])
-        .filter((size) => size.label.trim() && Number.isFinite(size.price))
-        .map((size) => ({ label: size.label.trim(), price: formatPrice(size.price, size.priceFrom) })),
-      price: typeof item.price === "number" ? formatPrice(item.price, item.priceFrom) : "",
-    })),
+    items: category.items.map((item) => {
+      const itemPhoto = photoForItemId(item.id, site.photos, exclude);
+      return {
+        id: item.id,
+        name: item.name.trim(),
+        description: item.description?.trim() ?? "",
+        badge: item.badge?.trim() ?? "",
+        duration: item.duration?.trim() ?? "",
+        includes: (item.includes ?? []).map((inc) => inc.trim()).filter(Boolean),
+        isNew: Boolean(item.isNew),
+        signature: Boolean(item.signature),
+        prices: (item.sizes ?? [])
+          .filter((size) => size.label.trim() && Number.isFinite(size.price))
+          .map((size) => ({ label: size.label.trim(), price: formatPrice(size.price, size.priceFrom) })),
+        price: typeof item.price === "number" ? formatPrice(item.price, item.priceFrom) : "",
+        photo: itemPhoto
+          ? { src: itemPhoto.src, alt: itemPhoto.alt, ...photoDimensions(itemPhoto) }
+          : null,
+      };
+    }),
   }));
   if (categories.length === 0) return null;
   const note = getMenuNote(site);
   const tel = telHref(site.phone);
   const phoneDisplay = phoneLabel(site.phone);
+  const extraPhones = orderingLinks(site).filter((link) => link.kind === "phone" && link.href !== tel);
 
   return (
     <section
@@ -56,7 +67,13 @@ export function MenuSection() {
           />
         </Reveal>
         <Reveal delay={0.1} className="mt-10">
-          <MenuTabs categories={categories} tel={tel} phoneDisplay={phoneDisplay} />
+          <MenuTabs
+            categories={categories}
+            tel={tel}
+            phoneDisplay={phoneDisplay}
+            extraPhones={extraPhones}
+            menuNote={note}
+          />
         </Reveal>
       </div>
     </section>

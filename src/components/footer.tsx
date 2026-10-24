@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { CheckerStrip } from "@/components/checker-strip";
 import { container, focusRing } from "@/components/styles";
 import { Wordmark } from "@/components/wordmark";
@@ -6,13 +8,16 @@ import { cn } from "@/lib/cn";
 import { phoneLabel, telHref } from "@/lib/contact";
 import { hoursConfirmed, hoursFallback } from "@/lib/hours";
 import { directionsHref } from "@/lib/maps";
-import { safeHref } from "@/lib/ordering";
+import { orderingLinks, safeHref } from "@/lib/ordering";
+import { logoPhoto, photoDimensions } from "@/lib/photos";
 
 /** Footer. The "Built by nicklopacki.com" credit is always the LAST line. */
 export function Footer() {
   const tel = telHref(site.phone);
   const directions = directionsHref(site);
   const hours = hoursConfirmed(site.hours) ? hoursFallback(site.hours) : "";
+  const logo = logoPhoto(site.photos);
+  const extraPhones = orderingLinks(site).filter((link) => link.kind === "phone" && link.href !== tel);
   const links = [...site.socials, ...(site.extraLinks ?? [])].flatMap((link) => {
     const href = safeHref(link.href);
     return href && link.label.trim() ? [{ label: link.label.trim(), href }] : [];
@@ -25,24 +30,57 @@ export function Footer() {
       <CheckerStrip size={10} className="h-5" />
       <div className={cn(container, "grid gap-10 pt-14 md:grid-cols-[1.4fr_1fr_1fr]")}>
         <div>
-          <Wordmark name={site.name} tone="cream" className="[&>span:first-child]:text-3xl [&>span:last-child]:text-3xl sm:[&>span:first-child]:text-4xl sm:[&>span:last-child]:text-4xl" />
+          <div className="flex items-center gap-3">
+            {logo && (
+              <Image
+                src={logo.src}
+                alt={logo.alt}
+                {...photoDimensions(logo)}
+                sizes="52px"
+                className="size-13 shrink-0 rounded-full border-2 border-cream bg-paper object-cover"
+              />
+            )}
+            <Wordmark
+              name={site.name}
+              tone="cream"
+              className="[&>span:first-child]:text-3xl [&>span:last-child]:text-3xl sm:[&>span:first-child]:text-4xl sm:[&>span:last-child]:text-4xl"
+            />
+          </div>
           {site.tagline.trim() && <p className="mt-4 max-w-sm text-cream/70">{site.tagline}</p>}
         </div>
         <div className="space-y-2 text-sm text-cream/80">
           <p className={heading}>Visit</p>
           <p>{site.address.full}</p>
           {directions && (
-            <a href={directions} target="_blank" rel="noopener noreferrer" className={cn("inline-block underline underline-offset-4 hover:text-mustard", focusRing)}>
+            <a
+              href={directions}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn("inline-block underline underline-offset-4 hover:text-mustard", focusRing)}
+            >
               Get directions
             </a>
           )}
           {tel && (
             <p>
-              <a href={tel} className={cn("font-display text-2xl tracking-wide text-cream hover:text-mustard", focusRing)}>
+              <a
+                href={tel}
+                className={cn("font-display text-2xl tracking-wide text-cream hover:text-mustard", focusRing)}
+              >
                 {phoneLabel(site.phone)}
               </a>
             </p>
           )}
+          {extraPhones.map((line) => (
+            <p key={line.href}>
+              <a
+                href={line.href}
+                className={cn("font-display text-lg tracking-wide text-cream/85 hover:text-mustard", focusRing)}
+              >
+                {line.label}
+              </a>
+            </p>
+          ))}
         </div>
         {(hours || links.length > 0) && (
           <div className="space-y-2 text-sm text-cream/80">
@@ -56,7 +94,12 @@ export function Footer() {
               <ul className="space-y-2 pt-2">
                 {links.map((link) => (
                   <li key={link.href}>
-                    <a href={link.href} target="_blank" rel="noopener noreferrer" className={cn("underline-offset-4 hover:text-mustard hover:underline", focusRing)}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={cn("underline-offset-4 hover:text-mustard hover:underline", focusRing)}
+                    >
                       {link.label}
                     </a>
                   </li>
@@ -72,7 +115,10 @@ export function Footer() {
           {site.opened.trim() ? ` · Est. ${site.opened.trim()}` : ""}
         </p>
         <p className="mt-3 text-xs text-cream/70">
-          <a href="https://nicklopacki.com" className={cn("underline-offset-4 hover:text-cream hover:underline", focusRing)}>
+          <a
+            href="https://nicklopacki.com"
+            className={cn("underline-offset-4 hover:text-cream hover:underline", focusRing)}
+          >
             {credit}
           </a>
         </p>

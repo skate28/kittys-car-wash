@@ -8,9 +8,9 @@ import { site } from "@/content";
 import { cn } from "@/lib/cn";
 import { phoneLabel, telHref } from "@/lib/contact";
 import { hasAbout } from "@/lib/nav";
-import { photoDimensions, storyPhoto } from "@/lib/photos";
+import { heroPhoto, interiorPhoto, photoDimensions, storyPhoto } from "@/lib/photos";
 
-/** Retro car-wash inspection & shine ticket shown when there is no storefront photo yet. */
+/** Retro car-wash inspection & shine ticket. */
 function WashBayTicket() {
   const tel = telHref(site.phone);
   const streetNum = site.address.street.trim().split(/\s+/)[0] ?? "";
@@ -18,8 +18,8 @@ function WashBayTicket() {
     { label: "Foam Suds Hand Bath", value: "✓" },
     { label: "Wheels, Rims & Tire Shine", value: "✓" },
     { label: "Interior Vacuum & Wipe-Down", value: "✓" },
-    { label: "Spot-Free Hand Towel Dry", value: "✓" },
-    { label: "Fresh Cabin Scent", value: "✓" },
+    { label: "Seat-Removal Deep Detailing", value: "✓" },
+    { label: "Cold AC Waiting Lobby", value: "✓" },
   ];
 
   return (
@@ -78,13 +78,15 @@ function WashBayTicket() {
 export function About() {
   if (!hasAbout()) return null;
   const paragraphs = site.about.paragraphs.map((p) => p.trim()).filter(Boolean);
-  const photo = storyPhoto(site.photos);
+  const hero = heroPhoto(site.photos, site.heroImage);
+  const photo = storyPhoto(site.photos, hero?.src);
+  const lobby = interiorPhoto(site.photos);
 
   const highlights = [
     { icon: Droplets, label: "100% Hand Wash Care" },
-    { icon: Sparkles, label: "Deep Interior Detailing" },
-    { icon: Truck, label: "Cars, SUVs & Trucks" },
-    { icon: ShieldCheck, label: "No Harsh Track Brushes" },
+    { icon: Sparkles, label: "Seat-Out Deep Detailing" },
+    { icon: Truck, label: "Cars, SUVs & 2500+ Trucks" },
+    { icon: ShieldCheck, label: "Cold AC Waiting Lobby" },
   ];
 
   return (
@@ -93,11 +95,11 @@ export function About() {
       aria-labelledby="about-title"
       className="relative overflow-hidden border-b-[3px] border-ink bg-paper py-20 sm:py-28"
     >
-      <div className={cn(container, "grid items-center gap-14 lg:grid-cols-[1.2fr_1fr]")}>
+      <div className={cn(container, "grid items-start gap-14 lg:grid-cols-[1.2fr_1fr]")}>
         <Reveal>
           <SectionHeading
             id="about-title"
-            kicker="Why Pull Up"
+            kicker={site.opened.trim() ? `Since ${site.opened.trim()} · Why Pull Up` : "Why Pull Up"}
             title={site.about.heading.trim() || "Hand Wash Pride on Lem Turner"}
           />
           <div className="mt-8 max-w-xl space-y-5 text-lg leading-relaxed text-ink/85">
@@ -119,10 +121,15 @@ export function About() {
               </li>
             ))}
           </ul>
+
+          <div className="mt-10">
+            <WashBayTicket />
+          </div>
         </Reveal>
-        <Reveal delay={0.1}>
-          {photo ? (
-            <figure className="mx-auto max-w-md -rotate-2 rounded-3xl border-[3px] border-ink bg-cream p-3 shadow-[8px_8px_0_0_var(--fs-ink)]">
+
+        <Reveal delay={0.1} className="space-y-8">
+          {photo && (
+            <figure className="mx-auto max-w-md -rotate-1 rounded-3xl border-[3px] border-ink bg-cream p-3 shadow-[8px_8px_0_0_var(--fs-ink)]">
               <Image
                 src={photo.src}
                 alt={photo.alt}
@@ -130,9 +137,24 @@ export function About() {
                 sizes="(min-width: 1024px) 40vw, 90vw"
                 className="h-auto w-full rounded-2xl object-cover"
               />
+              <figcaption className="mt-2.5 px-1 text-xs font-bold uppercase tracking-wider text-ink/75">
+                Shaded wash bays &amp; red office on Lem Turner Rd
+              </figcaption>
             </figure>
-          ) : (
-            <WashBayTicket />
+          )}
+          {lobby && lobby.src !== photo?.src && (
+            <figure className="mx-auto max-w-md rotate-1 rounded-3xl border-[3px] border-ink bg-cream p-3 shadow-[8px_8px_0_0_var(--fs-ink)]">
+              <Image
+                src={lobby.src}
+                alt={lobby.alt}
+                {...photoDimensions(lobby)}
+                sizes="(min-width: 1024px) 40vw, 90vw"
+                className="h-auto w-full rounded-2xl object-cover"
+              />
+              <figcaption className="mt-2.5 px-1 text-xs font-bold uppercase tracking-wider text-ink/75">
+                Air-conditioned inside waiting lobby with TV &amp; refreshments
+              </figcaption>
+            </figure>
           )}
         </Reveal>
       </div>

@@ -5,15 +5,12 @@ import { SectionHeading } from "@/components/section-heading";
 import { container } from "@/components/styles";
 import { site } from "@/content";
 import { cn } from "@/lib/cn";
-import { galleryPhotos, heroPhoto, photoDimensions, storyPhoto } from "@/lib/photos";
+import { galleryPhotos, heroPhoto, photoDimensions } from "@/lib/photos";
 
 /** Real photos from `public/images/` only. Hidden when there are none besides the hero. */
 export function Gallery() {
   const hero = heroPhoto(site.photos, site.heroImage);
-  const story = storyPhoto(site.photos);
-  const filtered = galleryPhotos(site.photos).filter(
-    (photo) => photo.src !== hero?.src && photo.src !== story?.src,
-  );
+  const filtered = galleryPhotos(site.photos).filter((photo) => photo.src !== hero?.src);
   const photos = filtered.length > 0 ? filtered : galleryPhotos(site.photos);
   if (photos.length === 0) return null;
 

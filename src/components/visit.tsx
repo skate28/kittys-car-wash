@@ -9,12 +9,14 @@ import { cn } from "@/lib/cn";
 import { phoneLabel, telHref } from "@/lib/contact";
 import { hoursConfirmed, scheduleRows } from "@/lib/hours";
 import { directionsHref, mapEmbedSrc } from "@/lib/maps";
+import { orderingLinks } from "@/lib/ordering";
 
 const label = "flex items-center gap-2 font-display text-xl uppercase tracking-wide text-brand";
 
 /** Bold "Pull Up & Shine" Hours, Location, Tap-to-Call, and Google Maps embed block. */
 export function Visit() {
   const tel = telHref(site.phone);
+  const extraPhones = orderingLinks(site).filter((link) => link.kind === "phone" && link.href !== tel);
   const directions = directionsHref(site);
   const map = mapEmbedSrc(site);
   const showHours = hoursConfirmed(site.hours);
@@ -118,6 +120,12 @@ export function Visit() {
                     Call {phoneLabel(site.phone)}
                   </a>
                 )}
+                {extraPhones.map((line) => (
+                  <a key={line.href} href={line.href} className={buttonCream}>
+                    <Phone className="size-5 text-brand" aria-hidden="true" />
+                    {line.label}
+                  </a>
+                ))}
                 {directions && (
                   <a
                     href={directions}

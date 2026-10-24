@@ -19,7 +19,7 @@ export function photoDimensions(photo: Pick<Photo, "width" | "height" | "categor
   if (photo.width && photo.width > 0 && photo.height && photo.height > 0) {
     return { width: photo.width, height: photo.height };
   }
-  if (photo.category === "logo") return { width: 720, height: 720 };
+  if (photo.category === "logo") return { width: 517, height: 501 };
   if (
     photo.category === "storefront" ||
     photo.category === "exterior" ||
@@ -62,7 +62,17 @@ export function logoPhoto(photos: Photo[]): Photo | null {
   return publicPhotos(photos).find((photo) => photo.category === "logo") ?? null;
 }
 
-const CATEGORY_PHOTO: Readonly<Record<string, string>> = {};
+function slug(src: string): string {
+  return photoFileName(src).replace(/\.[a-z0-9]+$/, "");
+}
+
+const PHOTO_ITEM: Readonly<Record<string, string>> = {};
+
+const CATEGORY_PHOTO: Readonly<Record<string, string>> = {
+  "wash-packages": "/images/outside-hand-wash-ford-f150-bay.webp",
+  "detail-packages": "/images/full-detail-purple-bmw-x6.webp",
+  "add-ons-specialty": "/images/menu-board-detail-packages.webp",
+};
 
 export function photoForCategory(id: string, photos: Photo[]): Photo | null {
   const src = CATEGORY_PHOTO[id];
@@ -70,15 +80,50 @@ export function photoForCategory(id: string, photos: Photo[]): Photo | null {
   return publicPhotos(photos).find((photo) => photo.src.trim() === src) ?? null;
 }
 
-/** Photo beside "About": first storefront/exterior/lot/wash/detail/interior photo. */
-export function storyPhoto(photos: Photo[]): Photo | null {
+/** Photo beside "About": first non-hero storefront/exterior/lot/wash/detail/interior photo. */
+export function storyPhoto(photos: Photo[], heroSrc?: string): Photo | null {
+  const pool = publicPhotos(photos).filter((photo) => photo.src !== heroSrc && !photo.hero);
   return (
+    pool.find((photo) => photo.category === "storefront") ??
+    pool.find((photo) => photo.category === "exterior") ??
+    pool.find((photo) => photo.category === "lot") ??
+    pool.find((photo) => photo.category === "interior") ??
     photosOfCategory("storefront", photos)[0] ??
-    photosOfCategory("exterior", photos)[0] ??
-    photosOfCategory("lot", photos)[0] ??
-    photosOfCategory("wash", photos)[0] ??
-    photosOfCategory("detail", photos)[0] ??
     photosOfCategory("interior", photos)[0] ??
     null
   );
+}
+
+/** Inside waiting lobby / interior photo for the About section. */
+export function interiorPhoto(photos: Photo[]): Photo | null {
+  return photosOfCategory("interior", photos)[0] ?? null;
+}
+
+function mappedPhoto(id: string, photos: Photo[], exclude: string[]): Photo | null {
+  const src = Object.entries(PHOTO_ITEM).find(([, itemId]) => itemId === id)?.[0];
+  if (!src) return null;
+  const photo = publicPhotos(photos).find((item) => item.src.trim() === src);
+  if (!photo || exclude.includes(photo.src)) return null;
+  return photo;
+}
+
+/**
+ * Photo for a service/package item by `<item.id>` or `<item.id>-*` filename prefix.
+ */
+export function photoForItemId(id: string, photos: Photo[], exclude: string[] = []): Photo | null {
+  const mapped = mappedPhoto(id, photos, exclude);
+  if (mapped) return mapped;
+
+  const workPhotos = publicPhotos(photos).filter(
+    (photo) =>
+      photo.category === "food" ||
+      photo.category === "wash" ||
+      photo.category === "detail" ||
+      photo.category === "vehicle",
+  );
+  const candidates = [
+    ...workPhotos.filter((photo) => slug(photo.src) === id),
+    ...workPhotos.filter((photo) => slug(photo.src).startsWith(`${id}-`)),
+  ];
+  return candidates.find((photo) => !exclude.includes(photo.src)) ?? null;
 }
