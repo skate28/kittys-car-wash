@@ -1,5 +1,4 @@
 import { Phone } from "lucide-react";
-import Image from "next/image";
 
 import { CheckerStrip } from "@/components/checker-strip";
 import { focusRing } from "@/components/styles";
@@ -8,11 +7,9 @@ import { site } from "@/content";
 import { cn } from "@/lib/cn";
 import { phoneLabel, telHref } from "@/lib/contact";
 import type { NavLink } from "@/lib/nav";
-import { logoPhoto, photoDimensions } from "@/lib/photos";
 
 export function Header({ links }: { links: NavLink[] }) {
   const tel = telHref(site.phone);
-  const logo = logoPhoto(site.photos);
 
   return (
     <header className="sticky top-0 z-40 border-b-[3px] border-ink bg-cream/95 backdrop-blur">
@@ -20,18 +17,9 @@ export function Header({ links }: { links: NavLink[] }) {
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
         <a
           href="#content"
-          className={cn("inline-flex shrink-0 items-center gap-2.5 rounded", focusRing)}
+          className={cn("inline-flex shrink-0 items-center rounded", focusRing)}
           aria-label={`${site.name}, back to top`}
         >
-          {logo && (
-            <Image
-              src={logo.src}
-              alt={logo.alt}
-              {...photoDimensions(logo)}
-              sizes="40px"
-              className="size-10 rounded-full border-2 border-ink bg-paper object-cover"
-            />
-          )}
           <Wordmark name={site.name} />
         </a>
         {links.length > 0 && (
