@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useId, useState } from "react";
 
 import { buttonCream, buttonMustard, focusRing } from "@/components/styles";
+import { CartoonBubbleSvg, SudsCap, triggerFoamBlast } from "@/components/suds-bubbles";
 import { cn } from "@/lib/cn";
 
 export type MenuTabItem = {
@@ -55,7 +56,7 @@ export function MenuTabs({
         <div
           role="tablist"
           aria-label="Wash and detail categories"
-          className="-mx-5 flex gap-3 overflow-x-auto px-5 pb-3 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0"
+          className="-mx-5 flex gap-3 overflow-x-auto px-5 pb-3 pt-4 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0"
         >
           {categories.map((category) => {
             const selected = category.id === current.id;
@@ -67,16 +68,23 @@ export function MenuTabs({
                 id={`${baseId}-tab-${category.id}`}
                 aria-selected={selected}
                 aria-controls={`${baseId}-panel`}
-                onClick={() => setActive(category.id)}
+                onClick={() => {
+                  setActive(category.id);
+                  triggerFoamBlast();
+                }}
                 className={cn(
-                  "shrink-0 whitespace-nowrap rounded-full border-[3px] border-ink px-5 py-2.5 font-display text-sm uppercase tracking-wide transition hover:-translate-y-0.5",
+                  "relative shrink-0 whitespace-nowrap rounded-full border-[3px] border-ink px-5 py-2.5 font-display text-sm uppercase tracking-wide transition hover:-translate-y-0.5",
                   selected
                     ? "bg-brand text-paper shadow-[0_4px_0_0_var(--fs-ink)]"
                     : "bg-paper text-ink hover:bg-mustard",
                   focusRing,
                 )}
               >
-                {category.name}
+                {selected && <SudsCap variant="pill" className="absolute -top-4 inset-x-3 h-5 w-[calc(100%-1.5rem)]" />}
+                <span className="inline-flex items-center gap-2">
+                  <CartoonBubbleSvg size={20} tint={selected ? "mustard" : "aqua"} />
+                  {category.name}
+                </span>
               </button>
             );
           })}
@@ -87,8 +95,14 @@ export function MenuTabs({
         role={categories.length > 1 ? "tabpanel" : undefined}
         id={`${baseId}-panel`}
         aria-labelledby={categories.length > 1 ? `${baseId}-tab-${current.id}` : undefined}
-        className="mt-8 rounded-3xl border-[3px] border-ink bg-paper p-6 shadow-[8px_8px_0_0_var(--fs-ink)] sm:p-10"
+        className="relative mt-10 rounded-3xl border-[3px] border-ink bg-paper p-6 shadow-[8px_8px_0_0_var(--fs-ink)] sm:p-10"
       >
+        {/* Cartoon soap suds cap along top of the Wash & Detail Menu board */}
+        <SudsCap className="pointer-events-none absolute -top-8 left-6 z-10 h-11 w-64 sm:w-80" />
+        <div aria-hidden="true" className="animate-float-slow pointer-events-none absolute -right-4 -top-6 z-10 hidden sm:block">
+          <CartoonBubbleSvg size={44} tint="aqua" />
+        </div>
+
         <AnimatePresence mode="wait">
           <motion.div
             key={current.id}
@@ -123,10 +137,16 @@ export function MenuTabs({
                           whileHover={reduce ? undefined : { y: -4, rotate: idx % 2 === 0 ? -0.6 : 0.6 }}
                           transition={{ type: "spring", stiffness: 320, damping: 18 }}
                           className={cn(
-                            "flex flex-col justify-between rounded-2xl border-[3px] border-ink p-5 shadow-[5px_5px_0_0_var(--fs-ink)] transition-colors",
-                            item.signature ? "bg-cream/65" : "bg-paper",
+                            "group relative flex flex-col justify-between rounded-2xl border-[3px] border-ink p-5 shadow-[5px_5px_0_0_var(--fs-ink)] transition-colors",
+                            item.signature ? "bg-cream/65 pt-6" : "bg-paper",
                           )}
                         >
+                          {item.signature && (
+                            <SudsCap variant="pill" className="absolute -top-3.5 right-4 h-5 w-28" />
+                          )}
+                          <div aria-hidden="true" className="pointer-events-none absolute -right-2 -top-3 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                            <CartoonBubbleSvg size={28} tint="aqua" />
+                          </div>
                           <div>
                             {item.photo && (
                               <div className="mb-3.5 overflow-hidden rounded-xl border-2 border-ink bg-cream">
@@ -209,7 +229,8 @@ export function MenuTabs({
               </div>
 
               {current.photo && (
-                <figure className="hidden rotate-2 self-start rounded-2xl border-[3px] border-ink bg-cream p-2 shadow-[6px_6px_0_0_var(--fs-ink)] lg:block">
+                <figure className="relative hidden rotate-2 self-start rounded-2xl border-[3px] border-ink bg-cream p-2 shadow-[6px_6px_0_0_var(--fs-ink)] lg:block">
+                  <SudsCap variant="pill" className="absolute -top-4 inset-x-6 z-10 h-6 w-[calc(100%-3rem)]" />
                   <Image
                     src={current.photo.src}
                     alt={current.photo.alt}

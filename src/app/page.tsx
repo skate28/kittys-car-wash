@@ -1,6 +1,7 @@
 import { About } from "@/components/about";
 import { CallBand } from "@/components/call-band";
 import { Faq } from "@/components/faq";
+import { FoamDivider } from "@/components/foam-divider";
 import { Gallery } from "@/components/gallery";
 import { Hero } from "@/components/hero";
 import { Marquee } from "@/components/marquee";
@@ -15,10 +16,14 @@ export default function HomePage() {
     <main id="content">
       <Hero />
       <Marquee />
+      <FoamDivider variant="drip" bg="bg-cream" />
       <MenuSection />
+      <FoamDivider variant="wave" bg="bg-paper" />
       <About />
+      <FoamDivider variant="drip" bg="bg-teal" />
       <Reviews />
       <Gallery />
+      <FoamDivider variant="wave" bg="bg-ink" />
       <Order />
       <CallBand />
       <Visit />

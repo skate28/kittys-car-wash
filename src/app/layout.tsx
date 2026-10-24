@@ -7,6 +7,7 @@ import { Header } from "@/components/header";
 import { JsonLd } from "@/components/json-ld";
 import { MobileBar } from "@/components/mobile-bar";
 import { focusRing } from "@/components/styles";
+import { SudsBubbleOverlay } from "@/components/suds-bubbles";
 import { site } from "@/content";
 import type { Palette } from "@/content/types";
 import { cn } from "@/lib/cn";
@@ -102,6 +103,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Header links={primaryNav()} />
         {children}
         <Footer />
+        <SudsBubbleOverlay />
         <MobileBar />
         <JsonLd />
       </body>

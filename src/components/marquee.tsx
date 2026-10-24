@@ -1,7 +1,8 @@
+import { CartoonBubbleSvg } from "@/components/suds-bubbles";
 import { site } from "@/content";
 import { marqueeServices } from "@/lib/menu";
 
-/** Vibrant suds-blue ticker under the hero with car-wash services & shine highlights. */
+/** Vibrant suds-blue ticker under the hero with car-wash services, soap bubbles & shine highlights. */
 export function Marquee() {
   const words = marqueeServices(site);
   if (words.length === 0) return null;
@@ -18,7 +19,11 @@ export function Marquee() {
                 className="flex items-center whitespace-nowrap font-display text-xl uppercase tracking-wide sm:text-2xl"
               >
                 <span className="px-6">{word}</span>
-                <span className="text-mustard">✦</span>
+                {index % 2 === 0 ? (
+                  <CartoonBubbleSvg size={26} tint={index % 4 === 0 ? "aqua" : "mustard"} className="mx-1 shrink-0" />
+                ) : (
+                  <span className="text-mustard">✦</span>
+                )}
               </li>
             ))}
           </ul>

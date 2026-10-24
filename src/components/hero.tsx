@@ -7,6 +7,7 @@ import { HeroTitle } from "@/components/hero-title";
 import { ShopStatusPill } from "@/components/shop-status";
 import { SpinBadge } from "@/components/spin-badge";
 import { buttonCream, buttonMustard, buttonRed, container, focusRing } from "@/components/styles";
+import { CartoonBubbleSvg, SudsCap } from "@/components/suds-bubbles";
 import { nameLines } from "@/components/wordmark";
 import { site } from "@/content";
 import { cn } from "@/lib/cn";
@@ -118,10 +119,15 @@ export function Hero() {
           )}
         </div>
 
-        <div className="relative z-10 space-y-8">
+        <div className="relative z-10 space-y-8 pt-4">
           {photo ? (
             <>
               <figure className="relative mx-auto mb-10 max-w-md rotate-1 rounded-3xl border-[3px] border-ink bg-paper p-3 shadow-[10px_10px_0_0_var(--fs-ink)] lg:mb-0 lg:max-w-none">
+                {/* Billowing Cartoon Foam Suds Cap perched atop the Hero photo frame */}
+                <SudsCap className="absolute -top-8 inset-x-4 z-20 h-12 w-[calc(100%-2rem)]" />
+                <div className="animate-float-slow pointer-events-none absolute -right-5 -top-6 z-20">
+                  <CartoonBubbleSvg size={44} tint="aqua" />
+                </div>
                 <Image
                   src={photo.src}
                   alt={photo.alt}
@@ -132,7 +138,7 @@ export function Hero() {
                 />
                 <SpinBadge
                   text={ringText || site.name}
-                  className="absolute -bottom-9 -left-3 w-28 -rotate-6 sm:-left-8 sm:w-34"
+                  className="absolute -bottom-9 -left-3 z-20 w-28 -rotate-6 sm:-left-8 sm:w-34"
                 >
                   <span className="px-1 text-center font-display text-xs uppercase leading-tight sm:text-sm">
                     {center}
