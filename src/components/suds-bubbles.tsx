@@ -476,7 +476,10 @@ export function SudsBubbleOverlay() {
       </div>
 
       {/* Floating Interactive "Blast Suds!" Foam Cannon Button */}
-      <div className="fixed bottom-20 right-4 z-40 sm:bottom-6 sm:right-6">
+      <div
+        className="fixed bottom-24 right-4 z-40 md:bottom-6 md:right-6"
+        style={{ marginBottom: "env(safe-area-inset-bottom)" }}
+      >
         <motion.button
           type="button"
           onClick={launchFoamCannon}
